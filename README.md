@@ -16,7 +16,7 @@ After you've installed the packages there's only **three steps** before everyone
 2) Add documentation!! This chunk of texts should directly precede the function you've defined. This step is incredibly important so that other people can understand what your function does. It's got a few parts: 
 * a title, 
 * a description that gives a little more information on how the function works 
-* @import a way to import any packages needed for that function to work
+* @import a way to import any packages needed for that function to work. A better practice (if you can figure out specifically which functions are needed) is to use @importFrom package function. This reduces warnings and errors if multiple packages imported have functions of the same name.
 * @param which defines what each parameter means
 * @return which lets the user know what the function will return
 * @export which lets the package know that it's external facing and a user should be able to use this function after importing the library. Probably the only time you wouldn't include export is if this is a helper function that you don't want users to be able to touch.

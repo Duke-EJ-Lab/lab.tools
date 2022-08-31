@@ -3,10 +3,10 @@
 #' Anne's favorite ggplot theme
 #'
 #' A pretty simple theme, based on the tufte theme from ggthemes, but with a transparent background and simpler axes
-#' @import ggplot2
-#' @import ggthemes
+#' @importFrom ggthemes theme_tufte
 #' @param font The font
 #' @param size Text size
+#' @export
 theme_anne = function(font="Avenir", size=10) {
   theme_tufte(base_size=size, base_family=font) %+replace% 
     theme(
@@ -20,11 +20,11 @@ theme_anne = function(font="Avenir", size=10) {
 
 #' A truly blank ggplot theme
 #'
-#' A really blank theme - no axes, no ticks, no title, no axis labels, nothing. Mostly useful for maps. 
-#' @import ggplot2
-#' @import ggthemes
+#' A really blank theme - no axes, no ticks, no title, no axis labels, no legend, nothing. Mostly useful for maps. 
+#' @importFrom ggthemes theme_tufte
 #' @param font The font
 #' @param size Text size
+#' @export
 theme_blank = function(font="Avenir", size=10) {
   theme_tufte(base_size=size, base_family=font) %+replace% 
     theme(
