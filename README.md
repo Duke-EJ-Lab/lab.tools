@@ -28,18 +28,29 @@ After you've installed the packages there's only **three steps** before everyone
 Here's an example of some documentation.
 
 > #' Adding function
-> #'
+> 
 > #' This function adds the two numbers passed to it. One number defaults to two if only one variable is given. 
+>
 > #' @import ggplot
+>
 > #' @param x The first variable. Defaults to 2
+>
 > #' @param y The second variable
+>
 > #' @return The value of x+y 
+>
 > #' @export
+>
 > #' @examples
+>
 > #' adding_function(7)
+>
 > #' adding_function(1, 1)
+>
 > adding_function = function(x = 2, y){
+>
 >     return(x+y)
+>
 > }
 
 **3) "Process" the documentation.** This is what we installed those packages for! Set the working directory to the folder above your package and run
