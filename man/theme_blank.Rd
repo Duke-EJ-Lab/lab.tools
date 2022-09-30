@@ -12,5 +12,5 @@ theme_blank(font = "Avenir", size = 10)
 \item{size}{Text size}
 }
 \description{
-A really blank theme - no axes, no ticks, no title, no axis labels, nothing. Mostly useful for maps.
+A really blank theme - no axes, no ticks, no title, no axis labels, no legend, nothing. Mostly useful for maps.
 }

@@ -58,9 +58,3 @@ Once your changes are committed to GitHub, anyone in the lab should be able to i
 * using a devtools function to pull directly from github: `install_github('Duke-EJ-Lab/lab.tools', auth_token="XXXX")`. Here's a doc that can help you to [create your auth_token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), beware that it will only show it once so be sure to save it somewhere (that's not saved on GitHub!)
 
 If you want more info on building packages Hilary Parker wrote a [short and sweet tutorial](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/) with more information than this, and there's a much much more [in depth report/book](https://r-pkgs.org/) by the icons Hadley Wickham and Jenny Bryan (the chief scientists @ RStudio) on creating packages. 
-
-
-
-## Requirements
-- ggplot2
-- ggthemes
