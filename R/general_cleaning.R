@@ -1,3 +1,21 @@
+#' A function to detach all packages
+#' 
+#' Primarily useful for checking replication, or when switching between things you're working on and you're not using R Projects.
+#' Credit to: https://stackoverflow.com/questions/7505547/detach-all-packages-while-working-in-r
+#' 
+#' @export
+detach_all_packages <- function() {
+  
+  basic.packages <- c("package:stats","package:graphics","package:grDevices","package:utils","package:datasets","package:methods","package:base")
+  
+  package.list <- search()[ifelse(unlist(gregexpr("package:",search()))==1,TRUE,FALSE)]
+  
+  package.list <- setdiff(package.list,basic.packages)
+  
+  if (length(package.list)>0)  for (package in package.list) detach(package, character.only=TRUE)
+  
+}
+
 #' A silly function to let you know when your code is done running. 
 #' 
 #' All this function does is tell you that your code is done running and beeps. Put this line at the end of a long function so you can know your code is done. Ideally will never be used because our code is so efficient and doesn't require human intervention :)
