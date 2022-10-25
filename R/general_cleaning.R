@@ -70,3 +70,58 @@ merge_verbose = function(x, y, by, by.y=by, by.x=by, all=F, all.x=all, all.y=all
     
     return(new)
 }
+
+
+#' Get RSEI data that is consistent for a time series
+#'
+#' @param rsei The dataset as read in from the Duke Box folder `raw/rsei`. No changes made, or else output isn't guaranteed, MUST be passed as a data.frame.
+#' @param chemicals The dataset as read in from the Duke Box folder `raw/rsei/chemical_data_rsei_v2310.csv`. MUST be passed as a data.frame.
+#' @param starting_year The year you want to start having a consistent dataset from. The function will only return data for the year you've inputted, but will drop certain data based on the year you input here.
+#' @return a dataset of RSEI data, with certain data filtered out based on your `starting_year` of choice. 
+#' @export
+clean_timeseries_RSEI = function(rsei = NA, chemicals = NA, facility = NA, 
+                                 starting_year = 2011) {
+  
+  # do checks on inputs to make sure we have everything we need before we start running
+  if (starting_year <= 1998 & is.data.frame(facility)) {
+    stop("You must include the facility table!! If year <= 1998, we need to filter out seven industry groups that weren't required to report before that year. If we don't filter them out, we'll see an articial jump in toxicity in 1998 onward, the data will not be comprable to pre 1998.")
+  } else if (!is.data.frame(rsei) | !is.data.frame(chemicals)) {
+    stop("The RSEI and Chemicals inputs are both required to create a RSEI timeseries.")
+  } 
+  
+  # give all the cols easy to type names
+  names(rsei) = c("geoid", "releasenum", "ChemicalNumber", "facilitynum", 
+                  "media", "conc", "toxconc", "score", "scorecancer", 
+                  "scorenoncancer", "pop")
+  
+  # subset the chemicals data to the best core set for your chosen set
+  cutoff_years = c(1988, 1995, 1998, 2000, 2001, 2011)
+  choice_year = max(which(cutoff_years - starting_year <= 0)) # which is the last that is before your starting year
+  choice_year = cutoff_years[choice_year]
+  warning(paste("Using consistent chemical set from", choice_year, "onwards."))
+  choice_year = paste0("Core", substr(choice_year, 3, 4), "ChemicalFlag")
+  chemicals = chemicals %>%
+    filter((!!as.name(choice_year)) == 1) %>%
+    select(ChemicalNumber)
+  
+  # merge w/ chemicals, keeping only the obs that are in chemicals
+  rsei = rsei %>%
+    select(geoid, ChemicalNumber, conc, toxconc) %>%
+    filter(ChemicalNumber %in% chemicals$ChemicalNumber)
+  
+  if (starting_year <= 1998) {
+    # drop facilities that don't report pre 1998
+    facility = facility %>% 
+      filter(!NewIndustryFlag | is.na(NewIndustryFlag)) %>% 
+      mutate(FacilityNumber = as.integer(FacilityNumber))
+    rsei = rsei %>% filter(facilitynum %in% facility$FacilityNumber)
+  }
+  
+  # add up all the toxicities within a block group
+  rsei_agg = rsei %>%
+    group_by(geoid) %>%
+    summarise(toxconc = sum(toxconc))
+  
+  return(rsei_agg)
+}
+
