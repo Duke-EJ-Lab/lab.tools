@@ -8,6 +8,8 @@
 #' @param topologyPreserve see gSimplify
 #' @import rgdal
 #' @import rgeos
+#' @import magrittr
+#' @importFrom data.table rbindlist
 #' @export
 simplify_and_combine_shapefiles = function(shape_paths, id, tol, 
                                            topologyPreserve = T) {
