@@ -74,9 +74,9 @@ merge_verbose = function(x, y, by, by.y=by, by.x=by, all=F, all.x=all, all.y=all
 
 #' Get RSEI data that is consistent for a time series
 #'
-#' @param rsei The dataset as read in from the Duke Box folder `raw/rsei`. No changes made, or else output isn't guaranteed, MUST be passed as a data.frame.
+#' @param rsei The dataset as read in from the Duke Box folder `raw/rsei`. No changes made, or else output isn't guaranteed, MUST be passed as a data.frame. It expects the data to have the columns c("geoid", "releasenum", "ChemicalNumber", "facilitynum", "media", "conc", "toxconc", "score", "scorecancer", "scorenoncancer", "pop")
 #' @param chemicals The dataset as read in from the Duke Box folder `raw/rsei/chemical_data_rsei_v2310.csv`. MUST be passed as a data.frame.
-#' @param starting_year The year you want to start having a consistent dataset from. The function will only return data for the year you've inputted, but will drop certain data based on the year you input here.
+#' @param starting_year The year you want to start having a consistent dataset from. The function will only return data for the year you've inputed, but will drop certain data based on the year you input here.
 #' @return a dataset of RSEI data, with certain data filtered out based on your `starting_year` of choice. 
 #' @export
 clean_timeseries_RSEI = function(rsei = NA, chemicals = NA, facility = NA, 
